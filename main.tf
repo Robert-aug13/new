@@ -45,3 +45,21 @@ resource "null_resource" "install_microk8s" {
     ]
   }
 }
+
+
+resource "null_resource" "enable_microk8s_dashboard" {
+  depends_on = [null_resource.install_microk8s]
+
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      host        = "18.217.119.180"
+      user        = "ubuntu"
+      private_key = file("C:/Users/Robert/Downloads/micro-new.pem")
+    }
+    inline = [
+      "microk8s enable dashboard",
+    ]
+  }
+
+}
