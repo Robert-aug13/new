@@ -1,0 +1,23 @@
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 4h
+  # send all notifications to me
+  receiver: 'slack_notifications'
+receivers:
+  - name: 'slack_notifications'	
+	slack_configs:
+	  - api_url: 'https://hooks.slack.com/services/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'
+	    channel: '#testing'
+		send_resolve: true
+		
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+	target_match:
+	  severity: 'warning'
+	equal: [ 'alertname', 'dev' , 'instance']
+	
+	
+	
